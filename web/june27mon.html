@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>game</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+           *{
+            text-align: center;
+            margin-left: auto;
+            margin-right: auto;
+            margin-top: auto;
+            margin-bottom: auto;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: medium;
+            line-height: 1.5rem;
+            background-color:rgb(247, 249, 245);
+            padding-top: auto;
+            padding-bottom:auto;
+        
+    
+            
+        } 
+        /* .container {
+            width: 100%;
+            background-color: antiquewhite;
+
+
+        } */
+        button  {
+            background-color: rgb(200, 251, 190);
+            border-color: rgb(200, 251, 190);
+            box-sizing: unset;
+            border-radius: 5px
+            
+            
+        
+         }
+
+        button:hover {
+            background-color: rgb(0, 0, 0);
+            color: white;
+
+        }
+        input {
+            font-size: medium;
+            padding: 5px;
+            border-radius: 4px;
+            margin-left: 100px;
+            border-spacing: 5px 2rem;
+        }
+       
+     
+
+        .outputTable,
+        table,
+        tr,
+        th
+        {
+            color: brown;
+
+            
+
+
+        }
+        textarea {
+            border-style:none;
+  
+            border-color: rgb(163, 163, 163);
+            border-spacing: 6px 12px;
+           
+            border-radius: 3px;
+
+
+        }
+        .dgt_btns {
+            text-align: left;
+            border-color: blueviolet;
+            color: rgb(45, 126, 82);
+        }
+
+
+        div#numberline {
+            
+            border-style:none;
+            
+          
+          
+            border-color: rgb(163, 163, 163);
+            border-spacing: 6px 12px;
+           
+            border-radius: 3px;
+        
+
+        }
+        input:checked {
+            color: blue;
+
+        }
+        
+  
+        
+
+
+    </style>
+    
+
+</head>
+<body>
+  
+   
+   
+    <i class="fa-solid fa-carrot" ></i>  
+    <b id="date">  </b>
+    <i class="fa-solid fa-carrot" ></i>  
+    <p id= "demo"></p>
+    <div id="numberline">
+        
+        <button id="0" onclick='main.value= main.value + 0'>0</button>
+        <button id="1" onclick='main.value= main.value + 1'>1</button>
+        <button id="2" onclick='main.value= main.value + 2'>2</button>
+        <button id="3" onclick='main.value= main.value + 3'>3</button>
+        <button id="4" onclick='main.value= main.value + 4'>4</button>
+        <button id="5" onclick='main.value= main.value + 5'>5</button>
+        <button id="6" onclick='main.value= main.value + 6'>6</button>
+        <button id="7" onclick='main.value= main.value + 7'>7</button>                
+        <button id="8" onclick='main.value= main.value + 8'>8</button>                
+        <button id="9" onclick='main.value= main.value + 9'>9</button>                
+        <button type="button" id="enter" onclick="compare()" > Enter </button>                
+        <button id="del" class="btn" onclick="main.value = main.value.substring(0,(main.value.length -1))">Del</button>                
+        <button id="giveUp" onclick="alert('the secret number is' +' '+ secretArrDgts)">Give Up!</button> 
+    </div>
+    <div>
+        <input type="text" name ="main" id="main" placeholder="Type Your Guess"/>
+        
+
+    </div>
+    <div class="dgt_btns"> 
+        <input type="checkbox"  id="d3" name="digit_number"  class="dgt_btn" value="3">
+        <label for="d3">3 Digits </label></br>
+        <input type="checkbox" id="d4" name="digit_number" class="dgt_btn" value="4">
+        <label for="d4">4 Digits </label></br>
+        <input type="checkbox" id="d5" name="digit_number" class="dgt_btn"  value="5">
+        <label for="d5">5 Digits </label></br>
+            
+    </div> 
+    <div class="outputTable">
+        <table style="border-style: groove;">
+            <tr style="border-style: groove;">
+            
+                <th style="border-style: unset;">Your Guess: </th>
+                <th> ➕ </th>
+                
+                <th> ➖ </th>
+            </tr>
+            <tr>
+           
+                <td class="tblG" style="border-style: unset; " ><ol  id="yourGuess"></td>
+      
+        
+                <td id="numBulls" class="tblG" style="border-style: unset;"></td>
+            
+                <td id="numCows" class="tblG" style="border-style: unset;"></td>
+
+            </tr>
+        </table>
+    </div>        
+
+    
+
+         
+                
+
+            
+
+           
+               
+
+
+
+
+
+           
+        
+    
+
+        
+    
+        
+    
+    <script>
+
+        var enterKey = document.getElementById("main");
+        enterKey.addEventListener("keypress", function(event){
+            if ( event.key === "Enter" ){
+                event.preventDefault;
+                document.getElementById("enter").click();
+                document.getElementById('main').value = '';
+                return;
+
+            }
+
+        });
+
+     
+        function  secretNumCreator(digits){
+            var Sec_list  = [];
+            var remaining_numbers=[0,1,2,3,4,5,6,7,8,9];
+            var digit_index = [0,1,2,3,4,5,6,7,8];
+            var noZeroRndm =  Math.floor(Math.random() * 10) + 1;
+            let findIndex = remaining_numbers.indexOf(noZeroRndm);
+            let remainedFirst = remaining_numbers.splice(findIndex,1);
+            Sec_list.push(remainedFirst);
+            for (let a = 0; a < digits-1 ; a++){
+                var x = Math.floor(Math.random() * digit_index.length);
+                let n = x;
+                let removed= remaining_numbers.splice(n,1);
+                digit_index.pop();
+                Sec_list.push(removed);
+                
+            }
+            return Sec_list;
+
+
+        }
+        var secretArrDgts;
+
+        const radios = document.querySelectorAll('.dgt_btn');
+        radios.forEach(dgt_btn => {
+            dgt_btn.addEventListener('click', function warning(value) {
+                var answer = window.confirm("do you want to play " + this.value + " digits... " );
+                if (answer) {
+                    for (let i = 0; i<radios.length; i++){
+                        radios[i].disabled = true;
+                    }
+                    //dgt_btn.disabled = true;
+                    var digits = this.value;
+                    secretArrDgts = secretNumCreator(digits);
+                }
+                else {
+                    dgt_btn.disabled = false;
+                    dgt_btn.checked = false;
+                }
+            });
+
+        });
+  
+
+
+        function compare(){
+            if (secretArrDgts == undefined){
+                document.getElementById('main').value = '';
+                alert("you must select a digits number! ");
+                return;
+            }
+           
+            
+            
+    
+            let main = document.getElementById("main").value;
+            const mainToArray = main;
+            const mainArrDgts = Array.from(String(mainToArray), Number);
+            console.log(mainArrDgts);   
+
+
+            
+            
+           
+            if (isNaN(main) == true){
+                document.getElementById('main').value = '';
+                alert("just number!");
+
+                return;
+            }
+            if (main.length == 0){
+                alert("box is empty");
+                return;
+
+            }
+            if (main.length < secretArrDgts.length){
+                document.getElementById('main').value = '';
+                alert("need more digits");
+                return;
+
+            }
+            if (main.length > secretArrDgts.length){
+                document.getElementById('main').value = '';
+                alert("no more digits");
+                return;
+            
+
+            }
+            if (main.startsWith(0) == true){
+                document.getElementById('main').value = '';
+                alert("the secret code cannot start with 0 ");
+                return;
+            }
+            for ( let i=0;i<mainArrDgts.length; i++){
+                if ( mainArrDgts[i] == mainArrDgts[i+1]){
+                    document.getElementById('main').value = '';
+                    alert("each digits must be different ");
+                    return;
+                }
+               
+    
+            }
+            
+
+          
+    
+            let bullsAndCows = 0;
+            let bulls = 0;
+            let text = "";
+           
+            for (let i in secretArrDgts) for (let j in mainArrDgts){
+                if (mainArrDgts[j] == secretArrDgts[i]){
+                    bullsAndCows++;
+                }
+                    
+                if (mainArrDgts[j] == secretArrDgts[i]) if(i == j){
+                    bulls++;
+                }
+                var cows = bullsAndCows - bulls;
+                
+                document.getElementById("numBulls").style.color += "green";
+                
+                document.getElementById("numCows").style.color += "red";
+               
+
+            }
+            document.getElementById("main").value = '';
+            document.getElementById("numCows").innerHTML +=  cows + "<br>";  // geçici çözüm !!!
+            document.getElementById("numBulls").innerHTML +=  bulls+ "<br>"; // geçici çözüm !!!
+     
+ 
+            
+    
+            document.getElementById("yourGuess").style.color = "blue";
+            document.getElementById("yourGuess").innerHTML += "<li>" +  main + " : " ;// geçici çözüm !!!
+            if (bulls == secretArrDgts.length) {
+               
+            
+                document.getElementById("enter").disabled = true;
+                const btn = document.createElement("text");
+
+                btn.innerHTML = "congrats!👏💪  your guess " + main +"  is right; you find the secret number" ;
+                
+             
+                document.body.appendChild(btn);
+                btn.style.color= "green";
+                
+                btn.disabled = true;
+            
+                
+            
+       
+            //     location.reload();
+
+            }  // geçici çözüm !!!
+           
+
+            
+        
+        }
+  
+
+  
+  
+        function addZero(i) {
+          if (i < 10) {i = "0" + i}
+          return i;
+        }
+        
+        
+        const d = new Date();
+        const months = 
+        ["January","February","March","April","May","June","July","August","September","October","November","December"];
+        
+        const days = 
+        ["Sun","Mon","Tues","Wed","Thurs","Fri","Sat"];
+        
+        let month = months[d.getMonth()];
+        let day = days[d.getDay()];
+        let h = addZero(d.getHours());
+        let m = addZero(d.getMinutes());
+        let time = h + ":" + m; 
+        document.getElementById("date").innerHTML = d.getDate() + " "+ month + " " + day + " " + d.getFullYear() + " " + time;
+   
+   
+       
+       
+
+    </script> 
+</body>
+</html>
