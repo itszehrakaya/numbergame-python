@@ -6,9 +6,6 @@ ti = int(time.time())
 x = dt.datetime.now()
 print(x.strftime("%d %b %Y %A %H:%M"))
 print("to give up and learn the secret code, please type any string")
-
-
-
 def bulls_cows():
     try:
         while True:
@@ -22,17 +19,9 @@ def bulls_cows():
         Perm_list = [i for i in list(perm)]
         without_0 = [i for i in Perm_list if i[0] != 0]
         Sec_list = random.choice(without_0)
-
-
-
-
-
         step = 1
         while True:
-
             Player_2_guess = input(" guess :")
-
-
 
             guess_list = [int(i) for i in str(Player_2_guess)]
             are_digists_same = [1 for i in guess_list if (guess_list.count(i) > 1)]
@@ -46,40 +35,27 @@ def bulls_cows():
                 print("your guess must contain {} digits.".format(len(Sec_list)))
 
             else:
-
                 n_digit, bulls = 0 , 0
-
-
                 bc_intersection_list = [n_digit + 1 for i in guess_list for a in Sec_list if (i == a)]
-
                 while n_digit < len(guess_list):
-
                     if Sec_list[n_digit] == guess_list[n_digit]:
                         bulls += 1
                     bulls
                     n_digit += 1
-
                 cows = sum(bc_intersection_list) - bulls
 
-                print("{}. {}: {} ️💚 {} 💔  ".format(step, Player_2_guess, bulls, cows))
+                print("{}. {}: {} ️ ➕ {} ➖  ".format(step, Player_2_guess, bulls, cows))
                 step += 1
-
                 if bulls == len(Sec_list):
-
+                    
                     print("congrats 🥳️")
                     ts = int(time.time())
                     y = dt.datetime.now()
                     print(y.strftime("%d %b %Y %A %H:%M"))
                     print("Digits:",x, "Time (sec):",ts - ti,"Attempts:", step - 1, sep = "\n")
-
                     break
-
-
     except ValueError:
-
         print("hataa")
-
-
 bulls_cows()
 
 
